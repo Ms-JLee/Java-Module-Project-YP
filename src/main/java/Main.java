@@ -15,20 +15,24 @@ public class Main {
             while (true) {
                 System.out.println("— Введите скорость машины №" + i);
                 // Метод nextInt() возвращает введённое целое число.
-                int speed = scanner.nextInt();
-                if (speed >= 251) {
-                    System.out.println("— Неправильная скорость");
-                } else if (speed <= 0) {
-                    System.out.println("— Неправильная скорость");
+
+                if (scanner.hasNextInt()) {
+                    int speed = scanner.nextInt();
+                    if (speed <= 250 && speed > 0) {
+                        System.out.println("Автомобиль добавлен: " + name + " со скоростью " + speed + " км/ч");
+                        Car car = new Car(name, speed);
+                        race.whoIsLeader(car.name, car.speed);
+                        break;
+                    } else if (speed >= 251) {
+                        System.out.println("— Неправильная скорость");
+                    } else {
+                        System.out.println("— Неправильная скорость");
+                    }
                 } else {
-                    System.out.println("Автомобиль добавлен: " + name + " со скоростью " + speed + " км/ч");
-                    Car car = new Car(name, speed);
-                    race.whoIsLeader(car.name, car.speed);
-                    break;
+                    scanner.next(); // Чистим буффер
+                    System.out.println("Произошла ошибка ввода. Введите значение повторно");
                 }
-
             }
-
         }
         race.whoIsChampion();
     }
